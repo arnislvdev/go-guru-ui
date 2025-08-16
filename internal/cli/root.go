@@ -14,18 +14,18 @@ var (
 	verbose bool
 )
 
-// rootCmd represents the base command when called without any subcommands
+// This is the main command - what runs when you just type 'guruui'
 var rootCmd = &cobra.Command{
 	Use:   "guruui",
-	Short: "GuruUI - AI-powered error explanation and command translation",
-	Long: `GuruUI is a developer tool that explains errors in plain English 
-and translates natural language into CLI commands.
+	Short: "GuruUI - Makes errors easy to understand and turns words into commands",
+	Long: `GuruUI is a tool that explains errors in simple English 
+and turns normal words into computer commands.
 
-Features:
-  • Professional Mode: Clear, concise, beginner-friendly explanations
-  • WTF Mode: Same explanations with humor, sarcasm, and memes
-  • Error Analysis: Understand compilation and runtime errors
-  • Command Translation: Convert natural language to CLI commands
+What it does:
+  • Professional Mode: Clear and simple explanations
+  • WTF Mode: Same explanations but funny
+  • Error Help: Understand what went wrong
+  • Command Help: Turn words into commands
 
 Examples:
   guruui explain "undefined: fmt"
@@ -34,7 +34,7 @@ Examples:
 	Version: "0.1.0",
 }
 
-// Execute adds all child commands to the root command and sets flags appropriately.
+// Execute runs the main command and adds all the smaller commands
 func Execute() error {
 	return rootCmd.Execute()
 }
@@ -53,31 +53,31 @@ func init() {
 	rootCmd.AddCommand(configCmd)
 }
 
-// initConfig reads in config file and ENV variables if set.
+// initConfig reads the settings file and environment variables
 func initConfig() {
 	if cfgFile != "" {
-		// Use config file from the flag.
+		// Use the settings file they specified
 		viper.SetConfigFile(cfgFile)
 	} else {
-		// Find home directory.
+		// Find their home folder
 		home, err := os.UserHomeDir()
 		if err != nil {
 			fmt.Fprintf(os.Stderr, "Error: %v\n", err)
 			os.Exit(1)
 		}
 
-		// Search config in home directory with name ".guruui" (without extension).
+		// Look for settings file called ".guruui" in their home folder
 		viper.AddConfigPath(home)
 		viper.SetConfigType("yaml")
 		viper.SetConfigName(".guruui")
 	}
 
-	viper.AutomaticEnv() // read in environment variables that match
+	viper.AutomaticEnv() // read environment variables
 
-	// If a config file is found, read it in.
+	// If we found a settings file, read it
 	if err := viper.ReadInConfig(); err == nil {
 		if verbose {
-			fmt.Fprintf(os.Stderr, "Using config file: %s\n", viper.ConfigFileUsed())
+			fmt.Fprintf(os.Stderr, "Using settings file: %s\n", viper.ConfigFileUsed())
 		}
 	}
 }

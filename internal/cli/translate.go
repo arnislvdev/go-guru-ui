@@ -9,8 +9,8 @@ import (
 
 var translateCmd = &cobra.Command{
 	Use:   "translate [natural_language_query]",
-	Short: "Translate natural language to CLI commands",
-	Long: `Convert natural language descriptions into executable CLI commands.
+	Short: "Turn normal words into computer commands",
+	Long: `Turn normal words into computer commands you can run.
 	
 Examples:
   guruui translate "how do I check disk space"
@@ -20,19 +20,19 @@ Examples:
 	RunE: func(cmd *cobra.Command, args []string) error {
 		query := args[0]
 
-		// Get flags
+		// Get extra info
 		context, _ := cmd.Flags().GetString("context")
 
-		// Create translator service
+		// Make the translator
 		translator := usecase.NewCommandTranslator()
 
-		// Translate the query
+		// Turn words into command
 		command, explanation, err := translator.Translate(query, context, mode)
 		if err != nil {
 			return fmt.Errorf("failed to translate query: %w", err)
 		}
 
-		// Output the result
+		// Show the result
 		fmt.Printf("Command: %s\n\n", command)
 		fmt.Printf("Explanation: %s\n", explanation)
 		return nil

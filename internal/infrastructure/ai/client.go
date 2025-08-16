@@ -10,7 +10,7 @@ type Client interface {
 	ExplainError(err *domain.Error) (string, error)
 
 	// TranslateQuery converts natural language to CLI commands
-	TranslateQuery(query, context string) (*domain.Command, error)
+	TranslateQuery(query, contextInfo string) (*domain.Command, error)
 
 	// GetProvider returns the name of the AI provider
 	GetProvider() string

@@ -17,9 +17,9 @@ func NewCommandTranslator() *CommandTranslator {
 }
 
 // Translate converts a natural language query to a CLI command
-func (c *CommandTranslator) Translate(query, context, mode string) (string, string, error) {
+func (c *CommandTranslator) Translate(query, contextInfo, mode string) (string, string, error) {
 	// Use AI to translate the query
-	command, err := c.aiClient.TranslateQuery(query, context)
+	command, err := c.aiClient.TranslateQuery(query, contextInfo)
 	if err != nil {
 		return "", "", err
 	}

@@ -1,101 +1,101 @@
 # GuruUI 🧘‍♂️
 
-> AI-powered error explanation and command translation for developers
+> A simple tool that explains coding errors in plain English and turns everyday words into computer commands
 
-GuruUI is a Go-based developer tool that explains programming errors in plain English and translates natural language into CLI commands. It features two modes: **Professional Mode** for clear, concise explanations, and **WTF Mode** for the same explanations with humor, sarcasm, and memes.
+GuruUI is a simple tool written in Go that helps you understand programming errors and turns normal words into computer commands. It has two ways of talking to you: **Professional Mode** (clear and simple) and **WTF Mode** (fun and funny).
 
-## Features
+## What It Does
 
-- 🚀 **Error Explanation**: Understand compilation and runtime errors in plain English
-- 🔄 **Command Translation**: Convert natural language to executable CLI commands
-- 🎭 **Dual Modes**: Professional (clear) and WTF (humorous) output modes
-- 🤖 **AI-Powered**: Uses OpenAI GPT-4 for intelligent error analysis
-- 🎯 **Multi-Platform**: Supports Linux, macOS, and Windows
-- ⚡ **Fast**: Written in Go for optimal performance
+- **Explains Errors**: Makes coding errors easy to understand
+- **Turns Words Into Commands**: Changes normal words into computer commands
+- **Two Ways to Talk**: Professional (serious) and WTF (funny) modes
+- **Uses AI**: Gets help from OpenAI to understand what you need
+- **Works Everywhere**: Works on Windows, Mac, and Linux
+- **Fast**: Built with Go so it's quick
 
 ## Installation
 
-### Prerequisites
+### What You Need
 
-- Go 1.21 or later
-- OpenAI API key
+- Go 1.21 or newer
+- An OpenAI API key (to get one, go to openai.com)
 
 ### Build from Source
 
 ```bash
-# Clone the repository
-git clone https://github.com/guruui/guruui.git
-cd guruui
+# Get the code
+git clone https://github.com/arnislvdev/go-guru-ui.git
+cd go-guru-ui
 
-# Install dependencies
+# Get the parts it needs
 go mod tidy
 
-# Build the binary
+# Make the program
 go build -o guruui cmd/guruui/main.go
 
-# Move to your PATH (optional)
+# Put it where your computer can find it (optional)
 sudo mv guruui /usr/local/bin/
 ```
 
-### Configuration
+### Setup
 
-Set up your OpenAI API key:
+Tell the program your OpenAI API key:
 
 ```bash
 guruui config set --ai-provider openai --api-key <your-api-key>
 ```
 
-## Usage
+## How to Use
 
-### Error Explanation
+### Understanding Errors
 
 ```bash
-# Explain a Go compilation error
+# Explain a Go error
 guruui explain "undefined: fmt"
 
-# Explain with file context
+# Explain with file info
 guruui explain --file main.go --line 42 "cannot use nil as type string"
 
-# Use WTF mode for humorous explanations
+# Use funny mode
 guruui --mode wtf explain "imported and not used"
 ```
 
-### Command Translation
+### Turning Words Into Commands
 
 ```bash
-# Translate natural language to CLI commands
+# Turn normal words into computer commands
 guruui translate "how do I check disk space"
 
-# Add context for better results
+# Add extra info for better results
 guruui translate --context "I'm on Ubuntu" "install nginx"
 
-# WTF mode for fun translations
+# Use funny mode
 guruui --mode wtf translate "check network connections"
 ```
 
-### Configuration Management
+### Changing Settings
 
 ```bash
-# Show current configuration
+# See current settings
 guruui config show
 
 # Set AI provider and API key
 guruui config set --ai-provider openai --api-key <key>
 
-# Reset to defaults
+# Go back to default settings
 guruui config reset
 ```
 
 ## Examples
 
-### Error Explanation
+### Understanding Errors
 
-**Input:**
+**What you type:**
 ```bash
 guruui explain "undefined: fmt"
 ```
 
-**Professional Mode Output:**
+**Serious mode answer:**
 ```
 The error "undefined: fmt" means you're trying to use the 'fmt' package 
 but haven't imported it. 
@@ -104,7 +104,7 @@ To fix this, add the following import statement at the top of your Go file:
 import "fmt"
 ```
 
-**WTF Mode Output:**
+**Funny mode answer:**
 ```
 🤦‍♂️ Oh boy, here we go again...
 
@@ -117,14 +117,14 @@ import "fmt"
 🎯 Pro tip: If you can't see it, it probably doesn't exist. Schrödinger's variable!
 ```
 
-### Command Translation
+### Turning Words Into Commands
 
-**Input:**
+**What you type:**
 ```bash
 guruui translate "check disk space on my system"
 ```
 
-**Output:**
+**What you get:**
 ```
 Command: df -h
 
@@ -132,89 +132,88 @@ Explanation: The 'df' command displays disk space usage. The '-h' flag shows
 the output in human-readable format (GB, MB, etc.).
 ```
 
-## Architecture
+## How It's Built
 
 ```
-cmd/guruui/           # CLI entry point
-├── main.go          # Main application
-internal/             # Internal application code
-├── cli/             # CLI command definitions
-├── domain/          # Domain models and entities
-├── usecase/         # Business logic and use cases
-└── infrastructure/  # External integrations (AI, storage)
-pkg/                  # Public packages
-└── humor/           # WTF mode humor enhancement
+cmd/guruui/           # Where the program starts
+├── main.go          # Main program file
+internal/             # Inside program code
+├── cli/             # Command definitions
+├── domain/          # Data structures
+├── usecase/         # Main program logic
+└── infrastructure/  # Connects to outside services (AI, storage)
+pkg/                  # Public code
+└── humor/           # Funny mode responses
 ```
 
-## Development
+## For Developers
 
-### Project Structure
+### How the Code is Organized
 
-- **Clean Architecture**: Separation of concerns with clear layers
-- **Dependency Injection**: Easy to test and maintain
-- **Interface-based Design**: Pluggable AI providers and storage
-- **Error Handling**: Comprehensive error handling with user-friendly messages
+- **Clean Structure**: Code is organized in clear, separate parts
+- **Easy Testing**: Built so it's easy to test and fix
+- **Flexible Design**: Can easily swap out AI providers and storage
+- **Good Error Handling**: Gives helpful error messages
 
-### Adding New Features
+### Adding New Things
 
 1. **New Error Types**: Add to `internal/domain/error.go`
-2. **AI Prompts**: Modify `internal/infrastructure/ai/openai.go`
-3. **Humor Responses**: Extend `pkg/humor/wtf_mode.go`
-4. **CLI Commands**: Create new files in `internal/cli/`
+2. **AI Prompts**: Change `internal/infrastructure/ai/openai.go`
+3. **Funny Responses**: Add to `pkg/humor/wtf_mode.go`
+4. **New Commands**: Create new files in `internal/cli/`
 
 ### Testing
 
 ```bash
-# Run all tests
+# Test everything
 go test ./...
 
-# Run tests with coverage
+# Test with coverage report
 go test -cover ./...
 
-# Run specific package tests
+# Test just one part
 go test ./internal/usecase/
 ```
 
-## Roadmap
+## Future Plans
 
-### MVP (Current)
-- [x] Basic CLI structure with Cobra
-- [x] OpenAI integration for error explanation
-- [x] Simple error parsing for Go
-- [x] WTF mode with humor
-- [x] Configuration management
+### What's Done Now
+- [x] Basic command structure
+- [x] OpenAI connection for explaining errors
+- [x] Simple error understanding for Go
+- [x] Funny mode
+- [x] Settings management
 
-### Phase 2
+### Next Steps
 - [ ] Support for Python, JavaScript, Rust errors
-- [ ] Advanced error parsing with AST
-- [ ] Multiple AI provider support (Anthropic, local models)
-- [ ] Plugin system for custom integrations
+- [ ] Better error understanding
+- [ ] Support for other AI services
+- [ ] Plugin system for custom features
 
-### Phase 3
-- [ ] Cloud service with team collaboration
-- [ ] Enterprise features (SSO, compliance)
+### Long Term
+- [ ] Cloud service for teams
+- [ ] Business features
 - [ ] VS Code extension
-- [ ] Web dashboard
+- [ ] Web interface
 
-## Contributing
+## Want to Help?
 
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
+1. Copy the project to your account
+2. Make a new branch for your changes
+3. Save your changes
+4. Send your changes back
+5. Ask to merge your changes
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+This project is free to use under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-## Support
+## Get Help
 
 - 📖 [Documentation](https://docs.guruui.com)
-- 🐛 [Issue Tracker](https://github.com/guruui/guruui/issues)
-- 💬 [Discussions](https://github.com/guruui/guruui/discussions)
-- 🐦 [Twitter](https://twitter.com/guruui)
+- 🐛 [Report Problems](https://github.com/arnislvdev/go-guru-ui/issues)
+- 💬 [Ask Questions](https://github.com/arnislvdev/go-guru-ui/discussions)
 
 ---
 
-Made with ❤️ by the GuruUI team
+Made with ❤️ by Arnis

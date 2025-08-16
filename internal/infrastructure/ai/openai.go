@@ -32,7 +32,7 @@ func NewOpenAIClient() *OpenAIClient {
 func (c *OpenAIClient) ExplainError(err *domain.Error) (string, error) {
 	prompt := c.buildErrorExplanationPrompt(err)
 
-	resp, err := c.client.CreateChatCompletion(
+	resp, apiErr := c.client.CreateChatCompletion(
 		context.Background(),
 		openai.ChatCompletionRequest{
 			Model: c.config.Model,
@@ -50,8 +50,8 @@ func (c *OpenAIClient) ExplainError(err *domain.Error) (string, error) {
 		},
 	)
 
-	if err != nil {
-		return "", fmt.Errorf("OpenAI API error: %w", err)
+	if apiErr != nil {
+		return "", fmt.Errorf("OpenAI API error: %w", apiErr)
 	}
 
 	if len(resp.Choices) == 0 {
@@ -62,10 +62,9 @@ func (c *OpenAIClient) ExplainError(err *domain.Error) (string, error) {
 }
 
 // TranslateQuery converts natural language to CLI commands
-func (c *OpenAIClient) TranslateQuery(query, context string) (*domain.Command, error) {
-	prompt := c.buildTranslationPrompt(query, context)
-
-	resp, err := c.client.CreateChatCompletion(
+func (c *OpenAIClient) TranslateQuery(query, contextInfo string) (*domain.Command, error) {
+	prompt := c.buildTranslationPrompt(query, contextInfo)
+	resp, apiErr := c.client.CreateChatCompletion(
 		context.Background(),
 		openai.ChatCompletionRequest{
 			Model: c.config.Model,
@@ -83,8 +82,8 @@ func (c *OpenAIClient) TranslateQuery(query, context string) (*domain.Command, e
 		},
 	)
 
-	if err != nil {
-		return nil, fmt.Errorf("OpenAI API error: %w", err)
+	if apiErr != nil {
+		return nil, fmt.Errorf("OpenAI API error: %w", apiErr)
 	}
 
 	if len(resp.Choices) == 0 {
@@ -113,8 +112,8 @@ func (c *OpenAIClient) TranslateQuery(query, context string) (*domain.Command, e
 	return &domain.Command{
 		Command:     command,
 		Explanation: explanation,
-		Platform:    c.detectPlatform(context),
-		Context:     context,
+		Platform:    c.detectPlatform(contextInfo),
+		Context:     contextInfo,
 	}, nil
 }
 

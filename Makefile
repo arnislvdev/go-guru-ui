@@ -4,61 +4,61 @@
 help:
 	@echo "GuruUI Development Commands:"
 	@echo ""
-	@echo "  build     - Build the GuruUI binary"
-	@echo "  install   - Install dependencies and build"
-	@echo "  test      - Run all tests"
-	@echo "  lint      - Run linter checks"
-	@echo "  format    - Format Go code"
-	@echo "  clean     - Clean build artifacts"
-	@echo "  run       - Run GuruUI locally"
-	@echo "  docker    - Build Docker image"
+	@echo "  build     - Make the program"
+	@echo "  install   - Get parts and make the program"
+	@echo "  test      - Check if everything works"
+	@echo "  lint      - Check code quality"
+	@echo "  format    - Make code look nice"
+	@echo "  clean     - Remove old files"
+	@echo "  run       - Run the program"
+	@echo "  docker    - Make a Docker container"
 	@echo ""
 
 # Build the binary
 build:
-	@echo "Building GuruUI..."
+	@echo "Making GuruUI..."
 	go build -o guruui cmd/guruui/main.go
-	@echo "Build complete! Binary: ./guruui"
+	@echo "Done! Program: ./guruui"
 
 # Install dependencies and build
 install:
-	@echo "Installing dependencies..."
+	@echo "Getting the parts..."
 	go mod tidy
 	go mod download
-	@echo "Building GuruUI..."
+	@echo "Making GuruUI..."
 	go build -o guruui cmd/guruui/main.go
-	@echo "Install complete! Binary: ./guruui"
+	@echo "Done! Program: ./guruui"
 
 # Run tests
 test:
-	@echo "Running tests..."
+	@echo "Checking if everything works..."
 	go test -v ./...
 
 # Run tests with coverage
 test-coverage:
-	@echo "Running tests with coverage..."
+	@echo "Checking everything and making a report..."
 	go test -coverprofile=coverage.out ./...
 	go tool cover -html=coverage.out -o coverage.html
-	@echo "Coverage report: coverage.html"
+	@echo "Report ready: coverage.html"
 
 # Run linter
 lint:
-	@echo "Running linter..."
+	@echo "Checking code quality..."
 	golangci-lint run
 
 # Format code
 format:
-	@echo "Formatting Go code..."
+	@echo "Making code look nice..."
 	go fmt ./...
 	go vet ./...
 
 # Clean build artifacts
 clean:
-	@echo "Cleaning build artifacts..."
+	@echo "Removing old files..."
 	rm -f guruui
 	rm -f coverage.out
 	rm -f coverage.html
-	@echo "Clean complete!"
+	@echo "Done!"
 
 # Run locally
 run: build
@@ -67,25 +67,25 @@ run: build
 
 # Build Docker image
 docker:
-	@echo "Building Docker image..."
+	@echo "Making Docker container..."
 	docker build -t guruui:latest .
-	@echo "Docker image built: guruui:latest"
+	@echo "Docker container ready: guruui:latest"
 
 # Development setup
 dev-setup:
-	@echo "Setting up development environment..."
+	@echo "Setting up tools for development..."
 	go install github.com/golangci/golangci-lint/cmd/golangci-lint@latest
 	go install golang.org/x/tools/cmd/goimports@latest
-	@echo "Development tools installed!"
+	@echo "Development tools ready!"
 
 # Quick development cycle
 dev: format test build
-	@echo "Development cycle complete!"
+	@echo "Development cycle done!"
 
 # Release build
 release: clean
-	@echo "Building release binaries..."
+	@echo "Making programs for different systems..."
 	GOOS=linux GOARCH=amd64 go build -o guruui-linux-amd64 cmd/guruui/main.go
 	GOOS=darwin GOARCH=amd64 go build -o guruui-darwin-amd64 cmd/guruui/main.go
 	GOOS=windows GOARCH=amd64 go build -o guruui-windows-amd64.exe cmd/guruui/main.go
-	@echo "Release binaries built!"
+	@echo "Programs ready for different systems!"

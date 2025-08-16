@@ -13,7 +13,7 @@ func TestNewErrorExplainer(t *testing.T) {
 
 func TestDetectErrorType(t *testing.T) {
 	explainer := &ErrorExplainer{}
-	
+
 	tests := []struct {
 		input    string
 		expected string
@@ -27,7 +27,7 @@ func TestDetectErrorType(t *testing.T) {
 		{"not enough arguments", "argument_count"},
 		{"unknown error", "unknown"},
 	}
-	
+
 	for _, test := range tests {
 		result := explainer.detectErrorType(test.input)
 		if result != test.expected {
@@ -38,7 +38,7 @@ func TestDetectErrorType(t *testing.T) {
 
 func TestDetermineSeverity(t *testing.T) {
 	explainer := &ErrorExplainer{}
-	
+
 	tests := []struct {
 		input    string
 		expected string
@@ -51,7 +51,7 @@ func TestDetermineSeverity(t *testing.T) {
 		{"argument_count", "error"},
 		{"unknown", "info"},
 	}
-	
+
 	for _, test := range tests {
 		result := explainer.determineSeverity(test.input)
 		if result != test.expected {

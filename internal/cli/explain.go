@@ -9,8 +9,8 @@ import (
 
 var explainCmd = &cobra.Command{
 	Use:   "explain [error_message]",
-	Short: "Explain an error message in plain English",
-	Long: `Explain a programming error in clear, understandable terms.
+	Short: "Explain an error message in simple English",
+	Long: `Explain a programming error in clear, simple terms.
 	
 Examples:
   guruui explain "undefined: fmt"
@@ -20,20 +20,20 @@ Examples:
 	RunE: func(cmd *cobra.Command, args []string) error {
 		errorMsg := args[0]
 
-		// Get flags
+		// Get the file and line info
 		file, _ := cmd.Flags().GetString("file")
 		line, _ := cmd.Flags().GetInt("line")
 
-		// Create explainer service
+		// Make the error explainer
 		explainer := usecase.NewErrorExplainer()
 
-		// Explain the error
+		// Get the explanation
 		explanation, err := explainer.Explain(errorMsg, file, line, mode)
 		if err != nil {
 			return fmt.Errorf("failed to explain error: %w", err)
 		}
 
-		// Output the explanation
+		// Show the explanation
 		fmt.Println(explanation)
 		return nil
 	},

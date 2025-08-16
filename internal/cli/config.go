@@ -9,8 +9,8 @@ import (
 
 var configCmd = &cobra.Command{
 	Use:   "config",
-	Short: "Manage GuruUI configuration",
-	Long: `Configure GuruUI settings including AI provider API keys and preferences.
+	Short: "Change GuruUI settings",
+	Long: `Change GuruUI settings including AI provider API keys and preferences.
 	
 Examples:
   guruui config set --ai-provider openai --api-key <your-key>
@@ -20,8 +20,8 @@ Examples:
 
 var configSetCmd = &cobra.Command{
 	Use:   "set",
-	Short: "Set configuration values",
-	Long: `Set configuration values for GuruUI.
+	Short: "Change settings",
+	Long: `Change settings for GuruUI.
 	
 Examples:
   guruui config set --ai-provider openai --api-key <your-key>
@@ -41,33 +41,33 @@ Examples:
 			viper.Set("default_mode", defaultMode)
 		}
 
-		// Save config
+		// Save settings
 		if err := viper.WriteConfig(); err != nil {
 			return fmt.Errorf("failed to save config: %w", err)
 		}
 
-		fmt.Println("Configuration saved successfully!")
+		fmt.Println("Settings saved!")
 		return nil
 	},
 }
 
 var configShowCmd = &cobra.Command{
 	Use:   "show",
-	Short: "Show current configuration",
+	Short: "Show current settings",
 	RunE: func(cmd *cobra.Command, args []string) error {
-		fmt.Println("Current Configuration:")
+		fmt.Println("Current Settings:")
 		fmt.Printf("AI Provider: %s\n", viper.GetString("ai.provider"))
 		fmt.Printf("Default Mode: %s\n", viper.GetString("default_mode"))
-		fmt.Printf("Config File: %s\n", viper.ConfigFileUsed())
+		fmt.Printf("Settings File: %s\n", viper.ConfigFileUsed())
 		return nil
 	},
 }
 
 var configResetCmd = &cobra.Command{
 	Use:   "reset",
-	Short: "Reset configuration to defaults",
+	Short: "Go back to default settings",
 	RunE: func(cmd *cobra.Command, args []string) error {
-		// Reset to defaults
+		// Go back to defaults
 		viper.Set("ai.provider", "openai")
 		viper.Set("default_mode", "professional")
 
@@ -75,7 +75,7 @@ var configResetCmd = &cobra.Command{
 			return fmt.Errorf("failed to save config: %w", err)
 		}
 
-		fmt.Println("Configuration reset to defaults!")
+		fmt.Println("Settings reset to defaults!")
 		return nil
 	},
 }

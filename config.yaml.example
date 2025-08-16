@@ -1,30 +1,30 @@
-# GuruUI Configuration Example
-# Copy this file to ~/.guruui.yaml and customize as needed
+# GuruUI Settings Example
+# Copy this file to ~/.guruui.yaml and change what you need
 
-# AI Provider Configuration
+# AI Service Settings
 ai:
-  provider: "openai"  # Options: openai, anthropic
-  api_key: "your-api-key-here"  # Your OpenAI API key
-  model: "gpt-4"  # AI model to use
-  max_tokens: 1000  # Maximum tokens for AI responses
+  provider: "openai"  # Choose: openai, anthropic
+  api_key: "your-api-key-here"  # Put your OpenAI API key here
+  model: "gpt-4"  # Which AI model to use
+  max_tokens: 1000  # How long the AI response can be
 
-# Default Settings
-default_mode: "professional"  # Options: professional, wtf
-verbose: false  # Enable verbose logging
+# Basic Settings
+default_mode: "professional"  # Choose: professional, wtf
+verbose: false  # Turn on detailed logging
 
-# Output Formatting
+# How Things Look
 output:
-  colors: true  # Enable colored output
-  emojis: true  # Enable emojis in WTF mode
-  max_width: 80  # Maximum line width for output
+  colors: true  # Turn on colored text
+  emojis: true  # Turn on emojis in funny mode
+  max_width: 80  # How wide the text can be
 
-# Error Parsing
+# Error Understanding
 errors:
-  languages: ["go"]  # Supported programming languages
-  include_stack_trace: false  # Include stack traces when available
+  languages: ["go"]  # Which programming languages to support
+  include_stack_trace: false  # Include stack traces when possible
   
-# Command Translation
+# Command Help
 commands:
-  platforms: ["linux", "macos", "windows"]  # Target platforms
+  platforms: ["linux", "macos", "windows"]  # Which operating systems to support
   include_examples: true  # Include usage examples
-  suggest_alternatives: true  # Suggest alternative commands
+  suggest_alternatives: true  # Suggest other commands you could use
