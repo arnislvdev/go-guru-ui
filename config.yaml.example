@@ -1,0 +1,30 @@
+# GuruUI Configuration Example
+# Copy this file to ~/.guruui.yaml and customize as needed
+
+# AI Provider Configuration
+ai:
+  provider: "openai"  # Options: openai, anthropic
+  api_key: "your-api-key-here"  # Your OpenAI API key
+  model: "gpt-4"  # AI model to use
+  max_tokens: 1000  # Maximum tokens for AI responses
+
+# Default Settings
+default_mode: "professional"  # Options: professional, wtf
+verbose: false  # Enable verbose logging
+
+# Output Formatting
+output:
+  colors: true  # Enable colored output
+  emojis: true  # Enable emojis in WTF mode
+  max_width: 80  # Maximum line width for output
+
+# Error Parsing
+errors:
+  languages: ["go"]  # Supported programming languages
+  include_stack_trace: false  # Include stack traces when available
+  
+# Command Translation
+commands:
+  platforms: ["linux", "macos", "windows"]  # Target platforms
+  include_examples: true  # Include usage examples
+  suggest_alternatives: true  # Suggest alternative commands
